@@ -75,7 +75,7 @@ namespace Viewmodels
             if (media is not null) ShowMovieInfoBox = true;
             else ShowMovieInfoBox = false;
 
-            SelectedMedia = media; ;
+            SelectedMedia = media;
         }
     }
 }

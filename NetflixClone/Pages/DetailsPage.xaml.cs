@@ -12,6 +12,10 @@ public partial class DetailsPage : ContentPage
         _vm = vm;
         BindingContext = _vm;
     }
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        await pageScrollView.ScrollToAsync(0, 0, animated: true);
+    }
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);

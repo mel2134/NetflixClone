@@ -85,6 +85,8 @@ namespace Viewmodels
             };
             await Shell.Current.GoToAsync(nameof(DetailsPage), true, parameters);
         }
+        [RelayCommand]
+        private void SetMainTrailer(string videoKey) => MainTrailerUrl = GenerateYoutubeUrl(videoKey);
         private static string GenerateYoutubeUrl(string videoKey) => $"https://www.youtube.com/embed/{videoKey}?autoplay=1&mute=1&cc_load_policy=1";
     }
 }
