@@ -37,20 +37,20 @@ namespace Services
             return null;
         }
         public async Task<MovieDetail> GetMediaDetailsAsync(int id, string type = "movie") =>
-            await HttpClient.GetFromJsonAsync<MovieDetail>(
-                $"{TmdbUrls.GetMovieDetails(id, type)}&api_key={key}");
+            await HttpClient.GetFromJsonAsync<MovieDetail>($"{TmdbUrls.GetMovieDetails(id, type)}&api_key={key}");
 
         private async Task<IEnumerable<Media>> GetMediasAsync(string url)
         {
             var trendingMoviesCollection = await HttpClient.GetFromJsonAsync<Movie>($"{url}&api_key={key}");
-            return trendingMoviesCollection.results
-                    .Select(r => r.ToMediaObject());
+            return trendingMoviesCollection.results.Select(r => r.ToMediaObject());
         }
         public async Task<IEnumerable<Genre>> GetGenresAsync()
         {
             var genresWrapper = await HttpClient.GetFromJsonAsync<GenreWrapper>($"{TmdbUrls.MovieGenres}&api_key={key}");
             return genresWrapper.Genres;
         }
+        public async Task<IEnumerable<Media>> GetSimilarAsync(int id, string type = "movie") =>
+            await GetMediasAsync($"{TmdbUrls.GetSimilar(id, type)}&api_key={key}");
     }
     public static class TmdbUrls
     {

@@ -8,7 +8,8 @@
              BackgroundColor="Black"
              Shell.BackgroundColor="Black"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:services="clr-namespace:Services">
+             xmlns:services="clr-namespace:Services"
+             xmlns:models="clr-namespace:Models">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label" x:Key="sub">
@@ -211,7 +212,27 @@
                         StrokeThickness="0"
                         IsVisible="False"
                         x:Name="similarTabContent">
-                    <Label Text="More like this grid"/>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Similar}"
+                                Wrap="Wrap"
+                                JustifyContent="SpaceBetween">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Media">
+                                <Border StrokeShape="RoundRectangle 4"
+                                        BackgroundColor="Black"
+                                        StrokeThickness="0"
+                                        HeightRequest="135"
+                                        WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsPageViewModel}}, Path=SimilarItemWidth}"
+                                        Margin="0, 0, 0, 5">
+                                    <Image Source="{Binding ThumbnailSmall}"
+                                           Aspect="Fill"/>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsPageViewModel}}, Path=ChangeToThisMediaCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
                 </Border>
 
             </VerticalStackLayout>

@@ -12,7 +12,14 @@ public partial class DetailsPage : ContentPage
         _vm = vm;
         BindingContext = _vm;
     }
-
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+        if (width > 0)
+        {
+            _vm.SimilarItemWidth = Convert.ToInt32(width / 3) - 3;
+        }
+    }
     protected async override void OnAppearing()
     {
         base.OnAppearing();
